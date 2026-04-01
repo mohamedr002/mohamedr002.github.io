@@ -124,15 +124,8 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             height: 64px;
-        }
-
-        .navbar-brand {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary-light);
-            letter-spacing: 0.5px;
         }
 
         .navbar-links {
@@ -600,49 +593,90 @@
         /* ===== Experience Section ===== */
         .timeline {
             position: relative;
-            padding-left: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 0;
+            left: 50%;
             top: 0;
-            height: 100%;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--primary-light), transparent);
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 50%, transparent 100%);
+            transform: translateX(-50%);
+            border-radius: 2px;
         }
 
         .timeline-item {
             position: relative;
-            margin-bottom: 2.5rem;
+            width: 50%;
+            padding: 15px 40px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 50px;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+            padding-left: 50px;
         }
 
         .timeline-dot {
             position: absolute;
-            left: -2.65rem;
-            top: 0.5rem;
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: var(--primary);
-            border: 2px solid var(--bg);
+            border: 3px solid var(--bg);
             box-shadow: 0 0 0 3px var(--primary);
+            top: 25px;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
         }
 
         .timeline-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1.75rem;
+            padding: 1.5rem;
             transition: all var(--transition);
             cursor: pointer;
+            text-align: left;
         }
 
         .timeline-card:hover {
             border-color: var(--primary);
-            transform: translateX(5px);
             box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding-left: 50px !important;
+                padding-right: 16px !important;
+            }
+            .timeline-item .timeline-dot {
+                left: 13px !important;
+                right: auto !important;
+            }
         }
 
         .timeline-card-header {
@@ -1088,7 +1122,6 @@
     <!-- ===== NAVBAR ===== -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
-            <a href="#hero" class="navbar-brand">M. Ragab</a>
             <ul class="navbar-links" id="navLinks">
                 <li><a href="#about">About</a></li>
                 <li><a href="#education">Education</a></li>
@@ -1096,6 +1129,8 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#publications">Publications</a></li>
                 <li><a href="#teaching">Teaching</a></li>
+                <li><a href="#media">Media</a></li>
+                <li><a href="#awards">Awards</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
@@ -1385,46 +1420,60 @@
         <div class="section-divider"></div>
 
         <div class="projects-grid">
-            <!-- Project 1 -->
+            <!-- Funded Project 1 -->
             <div class="project-card">
                 <div class="project-card-body">
-                    <h3><i class="fas fa-jet-fighter" style="color: var(--primary-light); margin-right: 0.5rem;"></i>AI-Driven Predictive Maintenance for Jet Engines</h3>
-                    <p>PI/Co-PI on $300K+ funded projects at TII for anomaly detection, fault diagnostics, and remaining useful life estimation with multimodal LLM integration for aerospace engine health monitoring.</p>
+                    <h3><i class="fas fa-jet-fighter" style="color: var(--primary-light); margin-right: 0.5rem;"></i>AI-Based PHM for Jet Engines</h3>
+                    <p><strong>Co-PI</strong> | USD 300K | TII, 2025–2026</p>
+                    <p>Anomaly detection, fault diagnostics, and remaining useful life estimation using multimodal AI and LLM integration for aerospace engine health monitoring.</p>
                 </div>
             </div>
 
-            <!-- Project 2 -->
+            <!-- Funded Project 2 -->
             <div class="project-card">
                 <div class="project-card-body">
-                    <h3><i class="fas fa-arrows-rotate" style="color: var(--primary-light); margin-right: 0.5rem;"></i>Contrastive Learning for Time Series Domain Adaptation</h3>
-                    <p>Novel contrastive approaches for domain adaptation in time series. Key papers: MAPU (KDD 2023), SLARDA (TNNLS), CADA (TII).</p>
-                    <a href="https://github.com/mohamedr002/MAPU_SFDA_TS" class="project-link" target="_blank">
-                        <i class="fab fa-github"></i> mohamedr002/MAPU_SFDA_TS
-                    </a>
+                    <h3><i class="fas fa-satellite" style="color: var(--primary-light); margin-right: 0.5rem;"></i>AI-Based IR Radiation Prediction for Engines</h3>
+                    <p><strong>PI</strong> | TII, 2025–2026</p>
+                    <p>Physics-informed deep learning for infrared radiation prediction in propulsion systems, enabling advanced thermal analysis and engine performance optimization.</p>
                 </div>
             </div>
 
-            <!-- Project 3 -->
+            <!-- Funded Project 3 -->
+            <div class="project-card">
+                <div class="project-card-body">
+                    <h3><i class="fas fa-shield-halved" style="color: var(--primary-light); margin-right: 0.5rem;"></i>Label-Efficient Federated Learning</h3>
+                    <p><strong>PI</strong> | SGD 150K | A*STAR CDF, 2024–2025</p>
+                    <p>Privacy-preserving federated transfer learning with limited labeled data for time series applications. Received A*STAR Career Development Award funding.</p>
+                </div>
+            </div>
+
+            <!-- Funded Project 4 -->
+            <div class="project-card">
+                <div class="project-card-body">
+                    <h3><i class="fas fa-brain" style="color: var(--primary-light); margin-right: 0.5rem;"></i>Self-Aware Continuously Learning Models</h3>
+                    <p><strong>Member</strong> | AI Singapore, 2022–2025</p>
+                    <p>Continual test-time adaptation and self-supervised learning for time series. Key outputs: TSLANet (ICML 2024), EverAdapt (MSSP 2025), KDD 2025.</p>
+                    <a href="https://github.com/mohamedr002/MAPU_SFDA_TS" class="project-link" target="_blank"><i class="fab fa-github"></i> MAPU_SFDA_TS</a>
+                </div>
+            </div>
+
+            <!-- Funded Project 5 -->
             <div class="project-card">
                 <div class="project-card-body">
                     <h3><i class="fas fa-database" style="color: var(--primary-light); margin-right: 0.5rem;"></i>Learning with Less Data</h3>
-                    <p>Self-supervised and label-efficient learning for time series. TS-TCC (IJCAI 2021, TPAMI 2023), TSLANet (ICML 2024), AdaTime benchmark (TKDD). PI: A*STAR CDF SGD 150K.</p>
+                    <p><strong>Member</strong> | A*STAR Programmatic Fund, 2021–2024</p>
+                    <p>Self-supervised and label-efficient representation learning for time series. Key outputs: TS-TCC (IJCAI 2021, TPAMI 2023), AdaTime benchmark (TKDD).</p>
+                    <a href="https://github.com/mohamedr002/SLARDA" class="project-link" target="_blank"><i class="fab fa-github"></i> SLARDA</a>
                 </div>
             </div>
 
-            <!-- Project 4 -->
+            <!-- Funded Project 6 -->
             <div class="project-card">
                 <div class="project-card-body">
-                    <h3><i class="fas fa-magnifying-glass-chart" style="color: var(--primary-light); margin-right: 0.5rem;"></i>Explainable AI for Multimodal Predictive Maintenance</h3>
-                    <p>XAI for multi-modal sensing in engine health monitoring, integrating physics-informed models with deep learning for interpretable fault detection and prognosis.</p>
-                </div>
-            </div>
-
-            <!-- Project 5 -->
-            <div class="project-card">
-                <div class="project-card-body">
-                    <h3><i class="fas fa-shield-halved" style="color: var(--primary-light); margin-right: 0.5rem;"></i>Continual and Privacy-Preserving AI</h3>
-                    <p>EverAdapt (MSSP 2025), federated transfer learning, and continual test-time adaptation for time series under evolving distributions and privacy constraints.</p>
+                    <h3><i class="fas fa-magnifying-glass-chart" style="color: var(--primary-light); margin-right: 0.5rem;"></i>XAI for Multi-modal PHM of Jet Engines</h3>
+                    <p><strong>Member</strong> | IAPF, 2019–2021</p>
+                    <p>Explainable AI for multi-modal sensing in engine health monitoring, integrating physics-informed models with deep learning for interpretable fault detection.</p>
+                    <a href="https://github.com/mohamedr002/Attention-based-Sequence-to-Sequence-for-RUL" class="project-link" target="_blank"><i class="fab fa-github"></i> Attention-Seq2Seq-RUL</a>
                 </div>
             </div>
         </div>
@@ -1681,6 +1730,54 @@
         </div>
     </section>
 
+    <!-- ===== MEDIA & PRESS SECTION ===== -->
+    <section class="section" id="media">
+        <h2 class="section-title">Media <span>& Press</span></h2>
+        <p class="section-subtitle">Research highlights and media coverage</p>
+        <div class="section-divider"></div>
+
+        <div class="media-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem;">
+            <a href="https://research.a-star.edu.sg/articles/highlights/calculating-the-end-of-machine-life-flexibly/" target="_blank" class="media-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; text-decoration: none; color: inherit; display: block;">
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="flex-shrink: 0; width: 48px; height: 48px; border-radius: 10px; background: rgba(59,130,246,0.12); display: flex; align-items: center; justify-content: center; color: var(--primary-light); font-size: 1.2rem;">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1rem; color: var(--text); margin-bottom: 0.3rem;">Calculating the End of Machine Life Flexibly</h4>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.3rem;">A*STAR Research Highlights | May 2022</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6;">A*STAR researchers developed a computational platform that forecasts when machines will reach the end of their operational life, featuring Mohamed Ragab's CADA algorithm for transfer learning-based predictive maintenance.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://research.a-star.edu.sg/researcher/mohamed-ragab/" target="_blank" class="media-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; text-decoration: none; color: inherit; display: block;">
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="flex-shrink: 0; width: 48px; height: 48px; border-radius: 10px; background: rgba(59,130,246,0.12); display: flex; align-items: center; justify-content: center; color: var(--primary-light); font-size: 1.2rem;">
+                        <i class="fas fa-user-pen"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1rem; color: var(--text); margin-bottom: 0.3rem;">A*STAR Researcher Profile</h4>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.3rem;">A*STAR Research Portal</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6;">Featured researcher profile on A*STAR's official research portal, highlighting work on deep learning for condition monitoring and predictive maintenance.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://dr.ntu.edu.sg/entities/publication/fec5df16-ad71-4bbd-bfd1-45c393996bc1" target="_blank" class="media-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; text-decoration: none; color: inherit; display: block;">
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="flex-shrink: 0; width: 48px; height: 48px; border-radius: 10px; background: rgba(59,130,246,0.12); display: flex; align-items: center; justify-content: center; color: var(--primary-light); font-size: 1.2rem;">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1rem; color: var(--text); margin-bottom: 0.3rem;">NTU Digital Repository — TS-TCC</h4>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.3rem;">NTU Singapore | 2021</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6;">Time-Series Representation Learning via Temporal and Contextual Contrasting (IJCAI 2021), featured in NTU's official digital research repository.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
     <!-- ===== AWARDS SECTION ===== -->
     <section class="section" id="awards">
         <h2 class="section-title">Awards <span>& Honors</span></h2>
@@ -1752,7 +1849,7 @@
                 <i class="fab fa-linkedin"></i>
             </a>
         </div>
-        <p class="footer-copy">&copy; 2025 Mohamed Ragab. Built with code and curiosity.</p>
+        <p class="footer-copy">&copy; 2026 Mohamed Ragab. Built with code and curiosity.</p>
     </footer>
 
     <!-- Theme Toggle Button -->
