@@ -2,33 +2,35 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: Senior Researcher, <a href='https://www.tii.ae/'>Technology Innovation Institute (TII)</a>, UAE
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: true
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>Propulsion & Space Research Center</p>
+    <p>Technology Innovation Institute</p>
+    <p>Abu Dhabi, UAE</p>
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+selected_papers: true
+social: true
 
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  enabled: true
+  scrollable: true
+  limit: 5
 
 latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+  enabled: false
+  scrollable: true
+  limit: 3
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am a **Senior Researcher** at the [Technology Innovation Institute (TII)](https://www.tii.ae/), UAE, and an **Adjunct Researcher** at the Agency for Science, Technology, and Research ([A\*STAR](https://www.a-star.edu.sg/)), Singapore. I received my PhD in Computer Science and Engineering from [Nanyang Technological University (NTU)](https://www.ntu.edu.sg/), Singapore in 2022.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+My research focuses on developing **AI-driven solutions** for real-world time series applications, spanning predictive maintenance, healthcare, and manufacturing. I work on challenges including **domain adaptation**, **transfer learning**, **self-supervised learning**, and **privacy-preserving AI** for scenarios with scarce labeled data and distribution shifts.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+My research portfolio includes **20+ publications** in top-tier venues such as [ICML](https://icml.cc/), [KDD](https://www.kdd.org/), [IJCAI](https://www.ijcai.org/), [IEEE TPAMI](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=34), and [IEEE TNNLS](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=5962385). I have secured competitive research funding as **Principal Investigator**, including grants totaling over **$450K** for advancing AI methodologies in predictive maintenance and label-efficient learning.
+
+I actively serve as a **Program Committee member** for NeurIPS, ICML, ICLR, KDD, IJCAI, and AAAI, and as a reviewer for leading journals including IEEE TPAMI, TNNLS, and TII.
