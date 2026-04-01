@@ -1087,6 +1087,89 @@
             transform: scale(1.1);
         }
 
+        /* ===== News Section ===== */
+        .news-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-left: 3px solid var(--border);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .news-item:hover {
+            border-left-color: var(--primary);
+            background: var(--bg-card);
+        }
+
+        .news-date {
+            color: var(--primary-light);
+            font-size: 0.82rem;
+            font-weight: 600;
+            min-width: 80px;
+            white-space: nowrap;
+            padding-top: 0.1rem;
+        }
+
+        .news-content {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .news-content strong {
+            color: var(--text);
+        }
+
+        .news-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-right: 0.3rem;
+            vertical-align: middle;
+        }
+
+        .news-badge.new {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary-light);
+        }
+
+        .news-badge.award {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+        }
+
+        .news-badge.conf {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+
+        .news-badge.promo {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+        }
+
+        .news-item.hidden {
+            display: none;
+        }
+
+        /* Light mode news overrides */
+        [data-theme="light"] .news-content strong {
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .news-date {
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .news-item:hover {
+            background: #f8fafc;
+        }
+
         /* ===== Animations ===== */
         .fade-in {
             opacity: 0;
@@ -1491,6 +1574,7 @@
         <div class="navbar-container">
             <ul class="navbar-links" id="navLinks">
                 <li><a href="#about">About</a></li>
+                <li><a href="#news">News</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -1606,6 +1690,203 @@
                     <div class="highlight-item">
                         <i class="fas fa-arrow-up"></i>
                         <p>Promoted to Senior Researcher at TII (Oct 2025)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEWS SECTION ===== -->
+    <section class="section" id="news">
+        <h2 class="section-title">Latest <span>News</span></h2>
+        <p class="section-subtitle">Recent updates and achievements</p>
+        <div class="section-divider"></div>
+
+        <div class="news-container" style="max-width: 800px; margin: 0 auto;">
+            <!-- Year filter tabs -->
+            <div class="tab-buttons" style="margin-bottom: 1.5rem;">
+                <button class="tab-btn active" onclick="filterNews('all')">All</button>
+                <button class="tab-btn" onclick="filterNews('2026')">2026</button>
+                <button class="tab-btn" onclick="filterNews('2025')">2025</button>
+                <button class="tab-btn" onclick="filterNews('2024')">2024</button>
+                <button class="tab-btn" onclick="filterNews('2023')">2023</button>
+                <button class="tab-btn" onclick="filterNews('older')">Older</button>
+            </div>
+
+            <div class="news-list" id="newsList">
+
+                <!-- 2026 -->
+                <div class="news-item" data-year="2026">
+                    <div class="news-date">2026</div>
+                    <div class="news-content">
+                        <span class="news-badge new">New</span>
+                        Paper accepted in <strong>IEEE TKDE 2026</strong>: "Evidentially Calibrated Source-Free Time-Series Domain Adaptation with Temporal Imputation."
+                    </div>
+                </div>
+
+                <!-- 2025 -->
+                <div class="news-item" data-year="2025">
+                    <div class="news-date">Oct 2025</div>
+                    <div class="news-content">
+                        <span class="news-badge award"><i class="fas fa-trophy"></i></span>
+                        Won <strong>Best Paper Award</strong> at CCIA 2025.
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2025">
+                    <div class="news-date">Oct 2025</div>
+                    <div class="news-content">
+                        <span class="news-badge promo"><i class="fas fa-arrow-up"></i></span>
+                        Promoted to <strong>Senior Researcher</strong> at Technology Innovation Institute (TII), UAE.
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2025">
+                    <div class="news-date">2025</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>IEEE/CAA Journal of Automatica Sinica</strong>: "Deep Domain Adaptation for Turbofan Engine RUL Prediction."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2025">
+                    <div class="news-date">May 2025</div>
+                    <div class="news-content">
+                        Paper on <strong>Boosting Time-series Domain Adaptation via Time-Frequency Consensus</strong> accepted.
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2025">
+                    <div class="news-date">Feb 2025</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>IEEE Trans. Instrumentation & Measurement</strong>: "Evidential Domain Adaptation for RUL Prediction with Incomplete Degradation."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2025">
+                    <div class="news-date">Jan 2025</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>Mechanical Systems and Signal Processing</strong>: "EverAdapt: Continuous Adaptation for Dynamic Machine Fault Diagnosis."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2025">
+                    <div class="news-date">Jan 2025</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>IEEE Trans. Automation Science & Engineering</strong>: "From Inconsistency to Unity: Benchmarking UDA for RUL."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2025">
+                    <div class="news-date">Jan 2025</div>
+                    <div class="news-content">
+                        <span class="news-badge conf"><i class="fas fa-star"></i></span>
+                        Paper accepted at <strong>KDD 2025</strong>: "Augmented Contrastive Clustering with Uncertainty-Aware Prototyping for Time Series Test-Time Adaptation."
+                    </div>
+                </div>
+
+                <!-- 2024 -->
+                <div class="news-item" data-year="2024">
+                    <div class="news-date">Oct 2024</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>IEEE Trans. Instrumentation & Measurement</strong>: "Overcoming Negative Transfer by Online Selection for Fault Diagnosis."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2024">
+                    <div class="news-date">Jul 2024</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>IEEE TNNLS</strong>: "A Virtual-Label-Based Hierarchical Domain Adaptation Method for Time-Series Classification."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2024">
+                    <div class="news-date">Jun 2024</div>
+                    <div class="news-content">
+                        Joined <strong>TII Propulsion & Space</strong> as Researcher, Abu Dhabi, UAE.
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2024">
+                    <div class="news-date">Jun 2024</div>
+                    <div class="news-content">
+                        Survey paper accepted in <strong>IEEE Trans. Artificial Intelligence</strong>: "Label-Efficient Time Series Representation Learning: A Review."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2024">
+                    <div class="news-date">May 2024</div>
+                    <div class="news-content">
+                        <span class="news-badge conf"><i class="fas fa-star"></i></span>
+                        Paper accepted at <strong>ICML 2024</strong>: "TSLANet: Rethinking Transformers for Time Series Representation Learning."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2024">
+                    <div class="news-date">Jan 2024</div>
+                    <div class="news-content">
+                        <span class="news-badge award"><i class="fas fa-trophy"></i></span>
+                        Awarded the <strong>A*STAR Career Development Award</strong> (CDF) with SGD 150K research grant.
+                    </div>
+                </div>
+
+                <!-- 2023 -->
+                <div class="news-item" data-year="2023">
+                    <div class="news-date">Aug 2023</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>IEEE TPAMI</strong>: "Self-supervised Contrastive Representation Learning for Semi-supervised Time-Series Classification."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2023">
+                    <div class="news-date">Jun 2023</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>IEEE Trans. Artificial Intelligence</strong>: "Contrastive Domain Adaptation for Time-Series via Temporal Mixup."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2023">
+                    <div class="news-date">May 2023</div>
+                    <div class="news-content">
+                        <span class="news-badge conf"><i class="fas fa-star"></i></span>
+                        Paper accepted at <strong>KDD 2023</strong>: "Source-Free Domain Adaptation with Temporal Imputation for Time Series Data."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="2023">
+                    <div class="news-date">Feb 2023</div>
+                    <div class="news-content">
+                        Paper accepted in <strong>ACM TKDD</strong>: "AdaTime: A Benchmarking Suite for Domain Adaptation on Time Series Data."
+                    </div>
+                </div>
+
+                <!-- Older -->
+                <div class="news-item" data-year="older">
+                    <div class="news-date">May 2022</div>
+                    <div class="news-content">
+                        Joined <strong>A*STAR CFAR & I2R</strong> as Research Scientist, Singapore.
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="older">
+                    <div class="news-date">Jun 2021</div>
+                    <div class="news-content">
+                        <span class="news-badge conf"><i class="fas fa-star"></i></span>
+                        Paper accepted at <strong>IJCAI 2021</strong>: "Time-Series Representation Learning via Temporal and Contextual Contrasting (TS-TCC)."
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="older">
+                    <div class="news-date">Jun 2020</div>
+                    <div class="news-content">
+                        <span class="news-badge award"><i class="fas fa-trophy"></i></span>
+                        Won <strong>Finalist Paper Award</strong> at IEEE ICPHM 2020.
+                    </div>
+                </div>
+
+                <div class="news-item" data-year="older">
+                    <div class="news-date">Aug 2018</div>
+                    <div class="news-content">
+                        Started <strong>PhD</strong> at Nanyang Technological University with <strong>SINGA Scholarship</strong>.
                     </div>
                 </div>
             </div>
@@ -2307,6 +2588,21 @@
             },
             detectRetina: true
         });
+
+        // ===== News Filter =====
+        function filterNews(year) {
+            const items = document.querySelectorAll('.news-item');
+            const btns = document.querySelectorAll('#news .tab-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            items.forEach(item => {
+                if (year === 'all' || item.dataset.year === year) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
 
         // ===== Theme Toggle =====
         const themeToggle = document.getElementById('themeToggle');
