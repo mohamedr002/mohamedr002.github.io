@@ -1202,10 +1202,20 @@
 
         [data-theme="light"] .tab-btn {
             color: var(--text-light-muted);
+            background: transparent;
+            border-color: #cbd5e1;
+        }
+
+        [data-theme="light"] .tab-btn:hover {
+            background: rgba(59, 130, 246, 0.08);
+            color: var(--primary);
+            border-color: var(--primary);
         }
 
         [data-theme="light"] .tab-btn.active {
-            color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
         }
 
         [data-theme="light"] .award-card {
@@ -1300,8 +1310,159 @@
             color: var(--text-light-muted);
         }
 
-        [data-theme="light"] #tsparticles canvas {
-            opacity: 0.3;
+        [data-theme="light"] #tsparticles {
+            opacity: 0.08;
+        }
+
+        /* Give sections opaque background in light mode so particles don't wash out text */
+        [data-theme="light"] section {
+            background-color: #f8fafc;
+        }
+
+        [data-theme="light"] section:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        [data-theme="light"] .hero {
+            background-color: #f8fafc;
+        }
+
+        [data-theme="light"] .footer {
+            background-color: #f1f5f9;
+        }
+
+        /* ===== Light Theme — Additional Fixes ===== */
+
+        /* Links: make default link color darker for light bg */
+        [data-theme="light"] a {
+            color: #2563eb;
+        }
+        [data-theme="light"] a:hover {
+            color: #1d4ed8;
+        }
+
+        /* Download CV and primary buttons — ensure always white text */
+        [data-theme="light"] .btn-primary,
+        [data-theme="light"] a.btn-primary,
+        [data-theme="light"] a.btn-primary:visited {
+            color: #fff !important;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        /* Navbar links */
+        [data-theme="light"] .navbar-links a {
+            color: #475569;
+        }
+        [data-theme="light"] .navbar-links a:hover,
+        [data-theme="light"] .navbar-links a.active {
+            color: #2563eb;
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        /* Hero section text */
+        [data-theme="light"] .hero-role {
+            color: #475569;
+        }
+
+        /* Section titles */
+        [data-theme="light"] .section-title {
+            color: #1e293b;
+        }
+        [data-theme="light"] .section-subtitle {
+            color: #64748b;
+        }
+
+        /* Timeline text */
+        [data-theme="light"] .timeline-org {
+            color: #475569;
+        }
+        [data-theme="light"] .timeline-desc {
+            color: #475569;
+        }
+        [data-theme="light"] .timeline-date {
+            color: #2563eb;
+        }
+
+        /* Publication authors/meta */
+        [data-theme="light"] .pub-authors {
+            color: #475569;
+        }
+        [data-theme="light"] .pub-venue {
+            color: #2563eb;
+        }
+
+        /* Education card text */
+        [data-theme="light"] .edu-card h3 {
+            color: #1e293b;
+        }
+        [data-theme="light"] .edu-card p {
+            color: #475569;
+        }
+
+        /* Project card text */
+        [data-theme="light"] .project-card p {
+            color: #475569;
+        }
+        [data-theme="light"] .project-tag {
+            background: rgba(59, 130, 246, 0.08);
+            color: #2563eb;
+        }
+
+        /* Award card text */
+        [data-theme="light"] .award-info p {
+            color: #475569;
+        }
+        [data-theme="light"] .award-year {
+            color: #2563eb;
+        }
+
+        /* Media card text */
+        [data-theme="light"] .media-card p {
+            color: #475569 !important;
+        }
+
+        /* About section text */
+        [data-theme="light"] .about-text,
+        [data-theme="light"] .about-bio {
+            color: #334155;
+        }
+
+        /* Highlights text */
+        [data-theme="light"] .highlight-item p,
+        [data-theme="light"] .highlight-item span {
+            color: #334155;
+        }
+
+        /* Teaching items */
+        [data-theme="light"] .teaching-item {
+            color: #334155;
+        }
+
+        /* Footer links */
+        [data-theme="light"] .footer a {
+            color: #2563eb;
+        }
+        [data-theme="light"] .footer .btn-outline {
+            color: #475569;
+            border-color: #cbd5e1;
+        }
+        [data-theme="light"] .footer .btn-outline:hover {
+            color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        /* Skill badges/tags */
+        [data-theme="light"] .skill-tag {
+            background: rgba(59, 130, 246, 0.08);
+            color: #2563eb;
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Ensure all body text is dark in light mode */
+        [data-theme="light"] p,
+        [data-theme="light"] li,
+        [data-theme="light"] span {
+            color: inherit;
         }
     </style>
 </head>
@@ -2074,6 +2235,13 @@
                 <i class="fab fa-linkedin"></i>
             </a>
         </div>
+        <!-- Flag Counter -->
+        <div class="flag-counter-wrapper" style="margin: 2rem auto 1.5rem; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fas fa-globe" style="color: var(--primary-light); margin-right: 0.3rem;"></i>Visitors from around the world</p>
+            <div style="display: inline-block; padding: 0.75rem 1.25rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;">
+                <a href="https://info.flagcounter.com/sgf8"><img src="https://s01.flagcounter.com/count2/sgf8/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0" style="border-radius: 6px;"></a>
+            </div>
+        </div>
         <p class="footer-copy">&copy; 2026 Mohamed Ragab. Built with code and curiosity.</p>
     </footer>
 
@@ -2255,13 +2423,25 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('fade-in', 'visible');
+                    fadeObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.05 });
+        }, { threshold: 0.02, rootMargin: '50px' });
 
         fadeElements.forEach(el => {
             el.classList.add('fade-in');
             fadeObserver.observe(el);
+        });
+
+        // Fallback: ensure all sections become visible after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                fadeElements.forEach(el => {
+                    if (!el.classList.contains('visible')) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 1500);
         });
     </script>
 
