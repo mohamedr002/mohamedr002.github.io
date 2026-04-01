@@ -713,6 +713,21 @@
             color: var(--text-muted);
             font-size: 0.92rem;
             margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .org-logo {
+            height: 24px;
+            width: auto;
+            border-radius: 4px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        [data-theme="light"] .org-logo[src*="astar"] {
+            filter: invert(1);
         }
 
         .timeline-desc {
@@ -1985,7 +2000,7 @@
                         <h3>Senior Researcher</h3>
                         <span class="timeline-date">Oct 2025 - Present</span>
                     </div>
-                    <p class="timeline-org"><i class="fas fa-building"></i> TII Propulsion & Space, Abu Dhabi, UAE</p>
+                    <p class="timeline-org"><img src="assets/img/logos/tii.svg" alt="TII" class="org-logo"> TII Propulsion & Space, Abu Dhabi, UAE</p>
                     <div class="timeline-desc">
                         Leading AI research for jet engine health monitoring. Principal Investigator on 2 projects, and Co-PI on a USD 300K funded project. Driving innovation in anomaly detection, fault diagnostics, and remaining useful life estimation using multimodal AI approaches.
                     </div>
@@ -2001,7 +2016,7 @@
                         <h3>Researcher</h3>
                         <span class="timeline-date">Jun 2024 - Oct 2025</span>
                     </div>
-                    <p class="timeline-org"><i class="fas fa-building"></i> TII Propulsion & Space, Abu Dhabi, UAE</p>
+                    <p class="timeline-org"><img src="assets/img/logos/tii.svg" alt="TII" class="org-logo"> TII Propulsion & Space, Abu Dhabi, UAE</p>
                     <div class="timeline-desc">
                         Advanced AI for predictive maintenance of aerospace engines. Published in top venues including KDD 2025, IEEE TASE, IEEE TIM, and MSSP. Developed novel domain adaptation and uncertainty-aware methods for fault diagnosis and prognosis.
                     </div>
@@ -2017,7 +2032,7 @@
                         <h3>Research Scientist</h3>
                         <span class="timeline-date">Dec 2022 - Jun 2024</span>
                     </div>
-                    <p class="timeline-org"><i class="fas fa-building"></i> CFAR, A*STAR, Singapore</p>
+                    <p class="timeline-org"><img src="assets/img/logos/astar.svg" alt="A*STAR" class="org-logo"> CFAR, A*STAR, Singapore</p>
                     <div class="timeline-desc">
                         Led research on privacy-preserving domain adaptation and continual AI. Principal Investigator on A*STAR Career Development Fund grant (SGD 150K). Published in ICML 2024, IEEE TPAMI, KDD 2023, and multiple IEEE Transactions journals.
                     </div>
@@ -2033,7 +2048,7 @@
                         <h3>Research Scholar</h3>
                         <span class="timeline-date">Aug 2018 - Dec 2022</span>
                     </div>
-                    <p class="timeline-org"><i class="fas fa-building"></i> I2R, A*STAR / NTU, Singapore</p>
+                    <p class="timeline-org"><img src="assets/img/logos/astar.svg" alt="A*STAR" class="org-logo"> I2R, A*STAR / NTU, Singapore</p>
                     <div class="timeline-desc">
                         Conducted PhD research on domain adaptation and self-supervised learning for time series. Published in IJCAI, IEEE TNNLS, IEEE TII, and other premier venues. Developed foundational methods for contrastive domain adaptation and representation learning.
                     </div>
@@ -2049,7 +2064,7 @@
                         <h3>AI/ML Intern</h3>
                         <span class="timeline-date">Sep 2020 - Dec 2020</span>
                     </div>
-                    <p class="timeline-org"><i class="fas fa-building"></i> ST Engineering Aerospace, Singapore</p>
+                    <p class="timeline-org"><img src="assets/img/logos/st.svg" alt="ST Engineering" class="org-logo"> ST Engineering Aerospace, Singapore</p>
                     <div class="timeline-desc">
                         Developed anomaly detection systems for aircraft engines using deep learning. Applied domain adaptation techniques to real-world aerospace maintenance data.
                     </div>
@@ -2065,7 +2080,7 @@
                         <h3>Assistant Lecturer</h3>
                         <span class="timeline-date">Dec 2017 - Jul 2018</span>
                     </div>
-                    <p class="timeline-org"><i class="fas fa-university"></i> Aswan University, Egypt</p>
+                    <p class="timeline-org"><img src="assets/img/logos/aswan.svg" alt="Aswan University" class="org-logo"> Aswan University, Egypt</p>
                     <div class="timeline-desc">
                         Delivered lectures and supervised undergraduate projects in the Department of Electrical Engineering. Mentored students on signal processing and machine learning fundamentals.
                     </div>
@@ -2081,7 +2096,7 @@
                         <h3>Teaching Assistant</h3>
                         <span class="timeline-date">Feb 2015 - Nov 2017</span>
                     </div>
-                    <p class="timeline-org"><i class="fas fa-university"></i> Aswan University, Egypt</p>
+                    <p class="timeline-org"><img src="assets/img/logos/aswan.svg" alt="Aswan University" class="org-logo"> Aswan University, Egypt</p>
                     <div class="timeline-desc">
                         Assisted in teaching courses in electrical engineering. Supported laboratory sessions and graded assignments. Pursued MSc research concurrently.
                     </div>
