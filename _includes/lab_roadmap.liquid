@@ -1,0 +1,19 @@
+<div class="lab-roadmap row row-cols-1 row-cols-md-3 g-4 mt-3">
+  {% for phase in site.data.lab.roadmap %}
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+            <h3 class="card-title h5 mb-0">{{ phase.horizon }}</h3>
+            <span class="text-muted small">{{ phase.period }}</span>
+          </div>
+          <ul class="mb-0 ps-3">
+            {% for item in phase.items %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

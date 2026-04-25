@@ -2,8 +2,10 @@
 layout: page
 title: AI-Driven Predictive Maintenance for Jet Engines
 description: AI solutions for prognostics and health management of jet engines
+img: assets/img/1.jpg
 importance: 1
 category: research
+lab: true
 related_publications: true
 ---
 

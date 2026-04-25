@@ -2,6 +2,7 @@
 layout: page
 title: Contrastive Learning for Time Series Domain Adaptation
 description: Leveraging contrastive learning to address domain shift in time series
+img: assets/img/2.jpg
 importance: 2
 category: research
 related_publications: true
@@ -19,9 +20,9 @@ Domain shift is a fundamental challenge in deploying time series models across d
 
 ## Selected Publications
 
-- **MAPU** -- Source-Free Domain Adaptation for Time Series, *KDD 2023*
-- **SLARDA** -- Self-Supervised Autoregressive Domain Adaptation, *IEEE TNNLS 2022*
-- **CADA** -- Contrastive Adversarial Domain Adaptation for RUL, *IEEE TII 2020*
+- **MAPU** -- Source-Free Domain Adaptation for Time Series, _KDD 2023_
+- **SLARDA** -- Self-Supervised Autoregressive Domain Adaptation, _IEEE TNNLS 2022_
+- **CADA** -- Contrastive Adversarial Domain Adaptation for RUL, _IEEE TII 2020_
 
 ## Open-Source Code
 

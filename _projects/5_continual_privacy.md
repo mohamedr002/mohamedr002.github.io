@@ -2,8 +2,10 @@
 layout: page
 title: Continual and Privacy-Preserving AI
 description: Sustainable and privacy-preserving AI for time series applications
+img: assets/img/5.jpg
 importance: 5
 category: research
+lab: true
 related_publications: true
 ---
 
@@ -20,8 +22,8 @@ Real-world systems evolve over time, and data privacy is increasingly critical. 
 
 ## Selected Publications
 
-- **EverAdapt** -- Continuous Adaptation for Dynamic Machine Fault Diagnosis, *MSSP 2025*
-- **Federated Transfer Learning** -- Privacy-Preserving Fault Diagnosis, *FL-AAAI 2022*
+- **EverAdapt** -- Continuous Adaptation for Dynamic Machine Fault Diagnosis, _MSSP 2025_
+- **Federated Transfer Learning** -- Privacy-Preserving Fault Diagnosis, _FL-AAAI 2022_
 
 ## Research Goals
 

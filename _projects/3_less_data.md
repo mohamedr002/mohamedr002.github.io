@@ -2,8 +2,10 @@
 layout: page
 title: Learning with Less Data
 description: Addressing scarcity of labeled data in time series applications
+img: assets/img/3.jpg
 importance: 3
 category: research
+lab: true
 related_publications: true
 ---
 
@@ -13,16 +15,16 @@ Labeled data is scarce and expensive in many real-world time series applications
 
 ## Key Contributions
 
-- **Label-Efficient Federated Learning** -- PI on A*STAR CDF grant (SGD 150K), developing federated approaches that learn from distributed, sparsely labeled time series data while preserving privacy.
+- **Label-Efficient Federated Learning** -- PI on A\*STAR CDF grant (SGD 150K), developing federated approaches that learn from distributed, sparsely labeled time series data while preserving privacy.
 - **TS-TCC: Self-Supervised Time Series Representation Learning** -- A temporal contrastive learning framework that learns robust representations without labels, achieving strong performance on downstream tasks (IJCAI 2021, IEEE TPAMI 2023).
 - **AdaTime Benchmarking Suite** -- A comprehensive benchmarking framework for unsupervised domain adaptation in time series, enabling fair and reproducible comparisons (ACM TKDD 2023).
 - **TSLANet: Lightweight Adaptive Transformer** -- A novel transformer architecture designed for efficient time series analysis with reduced data requirements (ICML 2024).
 
 ## Selected Publications
 
-- **TSLANet** -- Lightweight Adaptive Transformer for Time Series, *ICML 2024*
-- **TS-TCC** -- Self-Supervised Temporal Contrastive Learning, *IJCAI 2021 & IEEE TPAMI 2023*
-- **AdaTime** -- Benchmarking Domain Adaptation for Time Series, *ACM TKDD 2023*
+- **TSLANet** -- Lightweight Adaptive Transformer for Time Series, _ICML 2024_
+- **TS-TCC** -- Self-Supervised Temporal Contrastive Learning, _IJCAI 2021 & IEEE TPAMI 2023_
+- **AdaTime** -- Benchmarking Domain Adaptation for Time Series, _ACM TKDD 2023_
 
 ## Open-Source Code
 

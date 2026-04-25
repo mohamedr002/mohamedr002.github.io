@@ -2,6 +2,7 @@
 layout: page
 title: Explainable AI for Multimodal Predictive Maintenance
 description: Explainable AI for multimodal predictive maintenance of jet engines
+img: assets/img/4.jpg
 importance: 4
 category: research
 related_publications: true

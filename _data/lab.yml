@@ -1,0 +1,105 @@
+# Industrial Intelligence Lab — structured content for the lab hub page
+# Edit this file to update the lab page without touching the markdown template.
+
+name: Industrial Intelligence Lab
+short_name: IIL
+tagline: From data to decisions on the factory floor.
+mission: >
+  We build the full stack of industrial AI — from sensor signals to autonomous
+  decisions. Our work bridges foundation models, physics-informed deep learning,
+  generative AI, and agentic systems, applied to the machines that move the
+  world: jet engines, drones, ships, and manufacturing lines.
+
+# Five research pillars
+pillars:
+  - title: Physics-Informed Machine Learning
+    icon: fa-solid fa-atom
+    description: >
+      Embedding physical laws — thermodynamics, degradation dynamics, and
+      material fatigue — into deep learning architectures for trustworthy,
+      generalizable predictions on industrial assets.
+
+  - title: Industrial AI Foundation Models
+    icon: fa-solid fa-layer-group
+    description: >
+      Pretraining transformer-based models on diverse multi-source PHM data
+      (vibration, thermal, pressure, acoustic) to enable few-shot transfer
+      across machines, conditions, and failure modes.
+
+  - title: Accelerated Scientific Discovery
+    icon: fa-solid fa-rocket
+    description: >
+      Using AI to accelerate engineering discovery — surrogate models, neural
+      operators, and active learning loops that compress design and
+      qualification cycles for new materials, components, and systems.
+
+  - title: Intelligent Health Monitoring
+    icon: fa-solid fa-heart-pulse
+    description: >
+      Prognostics and health management for the machines that move the world:
+      jet engines, drones, ships, and manufacturing assets. Anomaly detection,
+      fault diagnosis, and remaining useful life estimation.
+
+  - title: Generative AI for Industrial Applications
+    icon: fa-solid fa-robot
+    description: >
+      LLMs, RAG, and agentic systems for industrial operations and maintenance.
+      Multi-agent architectures that turn raw sensor signals into actionable
+      maintenance decisions and work orders.
+
+# Roadmap — Now / Next / Later
+roadmap:
+  - horizon: Now
+    period: 2026
+    items:
+      - PHM Foundation Model — pretraining on multi-source industrial datasets
+      - Physics-constrained RUL prediction for jet engines
+      - LLM/RAG for operations & maintenance documentation (TII)
+
+  - horizon: Next
+    period: 2027
+    items:
+      - Edge-deployable Small Language Models for on-device monitoring
+      - Industrial agent benchmarks for autonomous fault diagnosis
+      - Cross-modality transfer (vibration → thermal → acoustic)
+
+  - horizon: Later
+    period: 2028+
+    items:
+      - End-to-end autonomous maintenance loop (sense → reason → act)
+      - Cross-domain transfer across aerospace, maritime, and energy
+      - Open benchmark and dataset suite for industrial AI research
+
+# Team & collaborators
+team:
+  lead:
+    name: Mohamed Ragab
+    role: Lab Lead, Senior Researcher
+    affiliation: Technology Innovation Institute (TII), UAE
+    url: /
+
+  members:
+    - name: Mariam Mostafa
+      role: PhD Student
+      affiliation: URV, Spain
+      topic: Domain Adaptation for Medical Imaging
+
+    - name: Hou Yubo
+      role: PhD Student
+      affiliation: NTU, Singapore
+      topic: Adaptation for Fault Diagnosis
+
+  alumni:
+    - Soohyeon Choi (Exchange PhD, UCF — LLMs for code)
+    - Peiliang Gong (Exchange PhD, Nanjing U — Source-Free DA, KDD 2025)
+    - Haodong Wang (Exchange PhD, HKUST — Continual TTA, MSSP 2025)
+    - Edward (MSc, NTU — Continual Domain Adaptation)
+    - Yang Sizhe (MSc, NUS — Robust Uncertainty Quantification)
+
+  partners:
+    - name: TII Propulsion & Space Research Center
+      url: https://www.tii.ae/
+    - name: A*STAR Institute for Infocomm Research (I2R)
+      url: https://www.a-star.edu.sg/i2r
+    - name: Nanyang Technological University (NTU)
+      url: https://www.ntu.edu.sg/
