@@ -30,9 +30,16 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
+        },{id: "nav-industrial-intelligence-lab",
+          title: "Industrial Intelligence Lab",
+          description: "From data to decisions on the factory floor. Foundation models, physics-informed deep learning, generative AI, and agentic systems for industrial assets.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/industrial-intelligence-lab/";
+          },
         },{id: "nav-cv",
           title: "CV",
-          description: "Mohamed Ragab&#39;s academic curriculum vitae.",
+          description: "Mohamed Ragab — academic curriculum vitae.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/cv/";
@@ -153,6 +160,21 @@ ninja.data = [{
           description: "Sustainable and privacy-preserving AI for time series applications",
           section: "Projects",handler: () => {
               window.location.href = "/projects/5_continual_privacy/";
+            },},{id: "projects-phm-fm-foundation-model-for-industrial-prognostics",
+          title: 'PHM-FM — Foundation Model for Industrial Prognostics',
+          description: "Pretraining transformer foundation models on multi-source PHM datasets for few-shot transfer.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_phm_foundation_model/";
+            },},{id: "projects-physrul-physics-constrained-transformers-for-rul-prediction",
+          title: 'PhysRUL — Physics-Constrained Transformers for RUL Prediction',
+          description: "Injecting thermodynamic and degradation priors into transformer architectures for trustworthy remaining-useful-life estimation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_physics_rul/";
+            },},{id: "projects-industrialagent-agentic-ai-for-autonomous-fault-diagnosis",
+          title: 'IndustrialAgent — Agentic AI for Autonomous Fault Diagnosis',
+          description: "Multi-agent systems that turn raw sensor signals into autonomous diagnosis and maintenance decisions.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_industrial_agents/";
             },},{
         id: 'social-cv',
         title: 'CV',
