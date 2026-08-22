@@ -151,7 +151,12 @@ input[type=range]{width:100%; accent-color:var(--teal); height:34px;}
       <div class="monitor"><canvas id="revCanvas" width="680" height="360"></canvas></div>
       <div class="pill">HOLD ON TO WHAT YOU JUST SAW</div>
       <p class="sub" style="margin-top:12px">Look up. Your instructor will take it from here: describe what you saw, and together the room will give this phenomenon its name.</p>
-      <button class="btn teal" onclick="enterWorlds()">Instructor unlocked: enter the Model Lab →</button>
+      <div style="display:flex; gap:10px; margin-top:12px; align-items:stretch;">
+        <input id="unlockCode" inputmode="numeric" maxlength="2" placeholder="code" aria-label="Model Lab unlock code"
+          style="flex:0 0 92px; border:2px solid #1E3252; border-radius:14px; background:#111F35; color:#fff; font-size:20px; font-weight:bold; text-align:center; font-family:inherit; letter-spacing:2px;">
+        <button class="btn teal" style="margin-top:0; flex:1;" onclick="tryUnlock()">Enter the Model Lab →</button>
+      </div>
+      <p class="sub" id="unlockMsg" style="margin-top:8px; font-size:13px; color:#8AA0B4;">The Model Lab is locked. Your instructor will put the code on screen when it is time.</p>
     </div>
   </div>
 
@@ -434,6 +439,11 @@ const WORLDS=[
 ];
 let vals={}, trainedAt={};
 function enterWorlds(){ world=0; showWorld(); }
+function tryUnlock(){
+  const el=document.getElementById('unlockCode'), msg=document.getElementById('unlockMsg');
+  if(el && el.value.trim()==='95'){ enterWorlds(); }
+  else { msg.textContent='Not yet. The code appears on the big screen when your instructor opens the Model Lab.'; msg.style.color='#F87171'; el.value=''; el.focus(); }
+}
 function nextWorld(){
   if(world<2){ world++; showWorld(); }
   else { go('s-final'); }
