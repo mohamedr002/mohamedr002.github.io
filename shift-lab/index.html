@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Shift Lab · Can you do the model's job?</title>
+<style>
+:root{
+  --navy:#16243A; --navy2:#0B1526; --panel:#111F35; --teal:#0D9488; --tealb:#2DD4BF; --tealdk:#0F766E;
+  --amber:#E8902A; --ambdk:#B07515; --slate:#1F2937; --muted:#6B7280; --line:#E2E8F0; --card:#F4F7FA;
+  --lteal:#D7F2EE; --red:#C0392B; --redb:#F87171; --green:#2E9E4F; --greenb:#4ADE80;
+  --redt:#FBEDEB; --greent:#EAF5F0; --ambert:#FDF4E7;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0; background:var(--navy2);}
+body{font-family:Helvetica,Arial,sans-serif; color:var(--slate);}
+.wrap{max-width:520px; margin:0 auto; padding:14px 14px 30px; min-height:100vh; display:flex; flex-direction:column;}
+.screen{display:none; flex:1; flex-direction:column; animation:fadein .35s ease;}
+.screen.on{display:flex;}
+@keyframes fadein{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+.card{background:#fff; border-radius:20px; padding:20px; box-shadow:0 14px 34px rgba(0,0,0,.35); margin-bottom:12px;}
+.card.dark{background:var(--panel); color:#DCE7F2; box-shadow:0 14px 34px rgba(0,0,0,.45);}
+h1{font-size:27px; margin:0 0 8px; color:var(--navy); letter-spacing:-.3px;}
+.card.dark h1, .card.dark h2{color:#fff;}
+h2{font-size:19px; margin:0 0 8px; color:var(--navy);}
+.kicker{font-size:11px; letter-spacing:2.4px; font-weight:bold; color:var(--teal); text-transform:uppercase; margin-bottom:8px;}
+.sub{color:var(--muted); font-size:14.5px; line-height:1.5;}
+.card.dark .sub{color:#9FB2C8;}
+.btn{display:block; width:100%; border:0; border-radius:14px; padding:16px; font-size:16.5px; font-weight:bold; font-family:inherit; cursor:pointer; margin-top:12px; letter-spacing:.2px; transition:transform .08s;}
+.btn.teal{background:linear-gradient(135deg,#0D9488,#0F766E); color:#fff; box-shadow:0 6px 18px rgba(13,148,136,.4);}
+.btn.amber{background:linear-gradient(135deg,#E8902A,#C97A1B); color:#fff; box-shadow:0 6px 18px rgba(232,144,42,.35);}
+.btn.ghostN{background:#fff; color:var(--green); border:2px solid var(--green);}
+.btn.ghostI{background:#fff; color:var(--red); border:2px solid var(--red);}
+.btn:active{transform:scale(.98);}
+.hdr{color:#fff; padding:10px 4px 14px; position:relative;}
+.hdr .s{color:var(--tealb); font-size:11.5px; letter-spacing:3px; font-weight:bold;}
+.hdr .t{font-weight:bold; font-size:22px; letter-spacing:-.2px; margin-top:3px;}
+.hdr::after{content:''; position:absolute; left:4px; bottom:6px; width:44px; height:3px; background:var(--amber); border-radius:2px;}
+.monitor{background:var(--navy2); border:1px solid #1E3252; border-radius:14px; padding:6px; position:relative;}
+.monitor canvas{width:100%; height:auto; display:block; border-radius:10px;}
+.monitor .mtag{position:absolute; top:12px; right:14px; font-size:10px; letter-spacing:2px; color:#3D5A80; font-weight:bold;}
+.tagrow{margin-top:8px;}
+.tag{display:inline-block; padding:5px 14px; border-radius:999px; font-size:12.5px; font-weight:bold; letter-spacing:.5px;}
+.tag.n{background:var(--greent); color:var(--green); border:1.5px solid var(--green);}
+.tag.i{background:var(--redt); color:var(--red); border:1.5px solid var(--red);}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;}
+.progress{display:flex; gap:6px; margin:10px 0 12px;}
+.progress i{flex:1; height:7px; border-radius:4px; background:#24354F; transition:background .3s;}
+.progress i.done{background:var(--tealb);}
+.progress i.bad{background:var(--redb);}
+.scorebar{display:flex; justify-content:space-between; align-items:center; color:#fff; padding:6px 4px 2px;}
+.scorebar b{color:var(--tealb); letter-spacing:2px; font-size:12.5px;}
+.scorebar span{font-weight:bold; font-size:14px;}
+.big{font-size:64px; font-weight:bold; text-align:center; margin:8px 0 2px; letter-spacing:-2px;}
+.feedback{position:fixed; inset:0; display:none; align-items:center; justify-content:center; pointer-events:none; z-index:9; background:rgba(11,21,38,.25);}
+.feedback span{font-size:120px; font-weight:bold; text-shadow:0 10px 40px rgba(0,0,0,.4);}
+.bars{display:flex; gap:34px; justify-content:center; align-items:flex-end; height:180px; margin:16px 0 4px;}
+.bars .col{text-align:center;}
+.bars .b{width:92px; border-radius:12px 12px 0 0; display:flex; align-items:flex-start; justify-content:center; color:#fff; font-weight:bold; font-size:21px; padding-top:9px; height:10px; transition:height 1.1s cubic-bezier(.2,.8,.2,1); margin:0 auto;}
+.bars .lbl{font-size:12px; color:var(--muted); font-weight:bold; margin-top:8px; letter-spacing:1px;}
+.reveal-line{font-size:21px; font-weight:bold; color:var(--navy); text-align:center; margin:12px 0 2px; line-height:1.35;}
+.pill{background:var(--ambert); border:1.5px solid var(--amber); color:var(--ambdk); font-weight:bold; border-radius:999px; padding:10px 16px; text-align:center; font-size:14px; margin-top:12px; letter-spacing:.5px;}
+.worldbar{display:flex; gap:8px; margin-bottom:12px;}
+.wchip{flex:1; text-align:center; border-radius:12px; padding:9px 4px; font-size:12px; font-weight:bold; background:#182944; color:#5B7396; border:1.5px solid #24354F;}
+.wchip.on{background:var(--teal); color:#fff; border-color:var(--teal);}
+.wchip.done{color:var(--tealb); border-color:var(--tealdk);}
+.shiftchips{display:flex; flex-wrap:wrap; gap:7px; margin:10px 0 4px;}
+.shiftchips span{background:var(--ambert); border:1.2px solid var(--amber); color:var(--ambdk); border-radius:999px; padding:5px 11px; font-size:12px; font-weight:bold;}
+.slider-row{margin:13px 0 2px;}
+.slider-row label{display:flex; justify-content:space-between; font-size:13.5px; font-weight:bold; color:var(--slate);}
+.slider-row label span{color:var(--tealdk);}
+input[type=range]{width:100%; accent-color:var(--teal); height:34px;}
+.gauge-svg{display:block; margin:2px auto 0;}
+.gnote{font-size:12.5px; color:var(--muted); text-align:center; margin-top:2px; min-height:34px; line-height:1.4; font-weight:bold;}
+.note{font-size:10.5px; color:#44597A; text-align:center; padding:12px 8px 4px; line-height:1.5;}
+.icon{width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-right:10px; vertical-align:middle;}
+.hrow{display:flex; align-items:center; margin-bottom:6px;}
+.counter{font-variant-numeric:tabular-nums;}
+</style>
+</head>
+<body>
+<div class="feedback" id="fb"><span></span></div>
+<div class="wrap">
+
+  <!-- INTRO -->
+  <div class="screen on" id="s-intro">
+    <div class="hdr"><div class="s">SHIFT LAB</div><div class="t">Can you do the model's job?</div></div>
+    <div class="card dark">
+      <div class="kicker" style="color:var(--tealb)">Your mission</div>
+      <h1>Become the AI.</h1>
+      <p class="sub">Hospitals use AI to catch irregular heartbeats. For the next few minutes, <b style="color:#fff">you</b> are that AI.
+      You will be trained exactly the way a model is trained: from labelled examples. Then you will be tested. Score as high as you can.</p>
+      <button class="btn teal" onclick="go('s-study')">Start my training</button>
+    </div>
+    <div class="note">Built by Dr. Mohamed Ragab · signals modelled on real ECG morphology (MIT-BIH characteristics)</div>
+  </div>
+
+  <!-- STUDY -->
+  <div class="screen" id="s-study">
+    <div class="hdr"><div class="s">TRAINING DATA · PATIENT FILE</div><div class="t">Study the labelled heartbeats</div></div>
+    <div class="card">
+      <p class="sub" style="margin-top:0">These labels represent cardiologist annotations. Learn what <b style="color:var(--green)">NORMAL</b> and <b style="color:var(--red)">IRREGULAR</b> look like. This is your training set. Take your time.</p>
+      <div id="studyGrid"></div>
+      <button class="btn teal" onclick="startQuiz(1)">I have learned the patterns →</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="screen" id="s-quiz">
+    <div class="scorebar"><b id="qLevel">LEVEL 1</b><span id="qScore" class="counter">Score 0 / 0</span></div>
+    <div class="progress" id="qProg"></div>
+    <div class="card">
+      <h2 id="qTitle">Beat 1 of 8</h2>
+      <div class="monitor"><span class="mtag">LIVE · LEAD II</span><canvas id="qCanvas" width="680" height="240"></canvas></div>
+      <div class="grid2">
+        <button class="btn ghostN" onclick="answer('N')">NORMAL</button>
+        <button class="btn ghostI" onclick="answer('I')">IRREGULAR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 1 RESULT -->
+  <div class="screen" id="s-r1">
+    <div class="hdr"><div class="s">LEVEL 1 COMPLETE</div><div class="t">You learn fast.</div></div>
+    <div class="card" style="text-align:center">
+      <div class="kicker">Your accuracy</div>
+      <div class="big counter" style="color:var(--green)" id="r1score">0%</div>
+      <p class="sub">A trained AI model scores about the same on this ward. You have earned Level 2.</p>
+      <button class="btn amber" onclick="startQuiz(2)">LEVEL 2 · new cases just came in →</button>
+    </div>
+  </div>
+
+  <!-- LEVEL 2 RESULT -->
+  <div class="screen" id="s-r2">
+    <div class="hdr"><div class="s">LEVEL 2 COMPLETE</div><div class="t" id="r2head">That felt different.</div></div>
+    <div class="card">
+      <div class="bars">
+        <div class="col"><div class="b" style="background:linear-gradient(180deg,#4ADE80,#2E9E4F)" id="bar1">0%</div><div class="lbl">LEVEL 1</div></div>
+        <div class="col"><div class="b" style="background:linear-gradient(180deg,#F87171,#C0392B)" id="bar2">0%</div><div class="lbl">LEVEL 2</div></div>
+      </div>
+      <div class="reveal-line">Same task. Same you.<br>What changed?</div>
+      <button class="btn teal" onclick="go('s-reveal'); drawReveal()">Show me what happened</button>
+    </div>
+  </div>
+
+  <!-- REVEAL -->
+  <div class="screen" id="s-reveal">
+    <div class="hdr"><div class="s">THE REVEAL</div><div class="t">You were ambushed.</div></div>
+    <div class="card">
+      <p class="sub" style="margin-top:0"><b>Level 1</b> tested you on the <b>same patient</b> you studied. <b>Level 2</b> quietly switched to <b>patients you never saw</b>: an older, faster heart with a drifting baseline, and an athlete with a slow, tall rhythm. Nobody warned you.</p>
+      <div class="monitor"><canvas id="revCanvas" width="680" height="360"></canvas></div>
+      <div class="pill">HOLD ON TO WHAT YOU JUST SAW</div>
+      <p class="sub" style="margin-top:12px">Look up. Your instructor will take it from here: describe what you saw, and together the room will give this phenomenon its name.</p>
+      <button class="btn teal" onclick="enterWorlds()">Instructor unlocked: enter the Model Lab →</button>
+    </div>
+  </div>
+
+  <!-- WORLD INTRO -->
+  <div class="screen" id="s-world">
+    <div class="hdr"><div class="s" id="wKick">WORLD 1 OF 3</div><div class="t" id="wTitle">The hospital</div></div>
+    <div class="worldbar">
+      <div class="wchip" id="wc0">1 · Hospital</div><div class="wchip" id="wc1">2 · Your pocket</div><div class="wchip" id="wc2">3 · The factory</div>
+    </div>
+    <div class="card dark">
+      <div class="hrow"><span class="icon" id="wIcon" style="background:#1B3A55"></span><h2 id="wJob" style="margin:0">The model reads heartbeats</h2></div>
+      <p class="sub" id="wStory">...</p>
+      <div class="kicker" style="margin-top:10px; color:var(--amber)">What shifts in this world</div>
+      <div class="shiftchips" id="wShifts"></div>
+      <button class="btn teal" onclick="go('s-lab'); initLab()">Enter this world →</button>
+    </div>
+  </div>
+
+  <!-- LAB -->
+  <div class="screen" id="s-lab">
+    <div class="hdr"><div class="s" id="labKick">WORLD 1 · HOSPITAL</div><div class="t">Break the model yourself</div></div>
+    <div class="card">
+      <div class="monitor"><span class="mtag" id="labTag">SENSOR FEED</span><canvas id="labCanvas" width="680" height="210"></canvas></div>
+      <div id="sliders"></div>
+      <svg class="gauge-svg" id="gauge" width="240" height="140" viewBox="0 0 240 140">
+        <path d="M20 130 A100 100 0 0 1 220 130" fill="none" stroke="#E2E8F0" stroke-width="16" stroke-linecap="round"/>
+        <path id="gArc" d="M20 130 A100 100 0 0 1 220 130" fill="none" stroke="#2E9E4F" stroke-width="16" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="16"/>
+        <text id="gNum" x="120" y="105" text-anchor="middle" font-size="40" font-weight="bold" fill="#2E9E4F">95%</text>
+        <text x="120" y="128" text-anchor="middle" font-size="10.5" font-weight="bold" letter-spacing="2" fill="#6B7280">MODEL ACCURACY</text>
+      </svg>
+      <div class="gnote" id="gaugeNote">The model was trained right here. Drag the world away from it.</div>
+      <button class="btn teal" id="adaptBtn" onclick="adapt()">ADAPT the model to this world</button>
+      <button class="btn amber" id="nextWorldBtn" onclick="nextWorld()" style="display:none">Next world →</button>
+      <div class="note" style="color:var(--muted)">Adaptation uses only unlabelled signals from the new world. Building this is my research.</div>
+    </div>
+    <div class="note">Shift Lab · Dr. Mohamed Ragab · accuracy surface calibrated to cross-domain results from the open ADATIME benchmark (ACM TKDD 2023)</div>
+  </div>
+
+  <!-- FINALE -->
+  <div class="screen" id="s-final">
+    <div class="hdr"><div class="s">THE PATTERN</div><div class="t">Three worlds, one villain.</div></div>
+    <div class="card dark">
+      <p class="sub"><b style="color:#fff">In the hospital</b>, patients age and sensors move.<br>
+      <b style="color:#fff">In your pocket</b>, phones change position and people walk differently.<br>
+      <b style="color:#fff">In the factory</b>, machines wear and loads change.</p>
+      <p class="sub">Different worlds, same villain: <b style="color:var(--tealb)">the world drifts away from the training data, and accuracy quietly falls.</b></p>
+      <div class="pill" style="background:#1B3A55; border-color:var(--tealb); color:var(--tealb)">A MODEL IS ONLY AS GOOD AS ITS ABILITY TO GENERALISE</div>
+      <p class="sub" style="margin-top:12px">So what do engineers do about a villain like this? They have three professional moves. Look up: that is exactly where the lesson goes next.</p>
+      <button class="btn teal" onclick="go('s-intro')">Restart Shift Lab</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+"use strict";
+// ================= state =================
+let level=1, qIdx=0, score1=0, score2=0, beats=[], cur=null, world=0;
+
+// ================= utils =================
+function go(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on')); document.getElementById(id).classList.add('on'); window.scrollTo(0,0); }
+function rng(seed){ let s=seed%2147483647; if(s<=0)s+=2147483646; return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646; }; }
+function countUp(el, target, suffix, ms=900){
+  const t0=performance.now();
+  (function step(t){ const p=Math.min(1,(t-t0)/ms); el.textContent=Math.round(target*p)+suffix;
+    if(p<1) requestAnimationFrame(step); })(t0);
+}
+
+// ================= ECG synthesis =================
+const P_A ={hr:72,  amp:1.0, wander:0.015,noise:0.015,tAmp:0.28, w:1.0};   // ward patient (training)
+const P_B ={hr:104, amp:0.55,wander:0.22, noise:0.06, tAmp:0.12, w:0.8};   // older, fast, drifting
+const P_C ={hr:52,  amp:1.35,wander:0.05, noise:0.025,tAmp:0.62, w:1.2, tPeak:true};   // athlete: slow, tall PEAKED T (PVC lookalike)
+function ecgWave(prof, irregular, seed, n=560, mode){
+  // mode: 'pvc' (wide bizarre beat), 'pause' (missed beat), 'early' (premature narrow beat)
+  mode = mode || (irregular ? 'pvc' : 'none');
+  const r=rng(seed), pts=[];
+  const beatLen = 60/prof.hr, dur = 3.0;
+  const anomAt = irregular ? (0.9+1.1*r()) : -1;
+  // snap anomaly to a beat slot
+  const slot = irregular ? Math.round((anomAt-0.2)/beatLen) : -99;
+  for(let i=0;i<n;i++){
+    const t=i/n*dur; let y=0;
+    y += prof.wander*Math.sin(2*Math.PI*0.35*t + seed);
+    y += (r()-0.5)*2*prof.noise;
+    for(let b=-1;b<Math.ceil(dur/beatLen)+1;b++){
+      let tc = b*beatLen + 0.2, a=prof.amp, wj=prof.w, kind='normal';
+      if(irregular && b===slot){
+        if(mode==='pvc'){ a=prof.amp*1.4; wj=prof.w*2.8; kind='pvc'; }
+        else if(mode==='pause'){ continue; }                    // beat simply missing: long RR gap
+        else if(mode==='early'){ tc -= beatLen*0.42; wj=prof.w*0.75; a=prof.amp*0.85; kind='early'; }
+      }
+      if(irregular && mode==='early' && b===slot+1){ tc += beatLen*0.12; } // compensatory-ish delay
+      const dt=t-tc; if(Math.abs(dt)>0.55) continue;
+      const g=(mu,sig,amp)=>amp*Math.exp(-((dt-mu)*(dt-mu))/(2*sig*sig));
+      if(kind==='pvc'){ y+=g(0,0.05,0.9*a); y+=g(0.09,0.05,-0.45*a); }
+      else{
+        y+=g(-0.11,0.020,0.09*a); y+=g(-0.022,0.009,-0.12*a);
+        y+=g(0,0.011*wj,1.0*a);   y+=g(0.024,0.010,-0.22*a);
+        if(prof.tPeak){ y+=g(0.15,0.022,prof.tAmp); }           // tall narrow peaked T: PVC lookalike
+        else{ y+=g(0.16,0.045,prof.tAmp); }
+      }
+    }
+    pts.push(y);
+  }
+  return pts;
+}
+
+// ================= monitor-style drawing =================
+function drawMonitor(canvas, pts, color='#2DD4BF'){
+  const c=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+  c.fillStyle='#0B1526'; c.fillRect(0,0,W,H);
+  c.strokeStyle='rgba(45,212,191,0.10)'; c.lineWidth=1;
+  for(let x=0;x<W;x+=17){c.beginPath();c.moveTo(x,0);c.lineTo(x,H);c.stroke();}
+  for(let y=0;y<H;y+=17){c.beginPath();c.moveTo(0,y);c.lineTo(W,y);c.stroke();}
+  c.strokeStyle='rgba(45,212,191,0.22)';
+  for(let x=0;x<W;x+=85){c.beginPath();c.moveTo(x,0);c.lineTo(x,H);c.stroke();}
+  for(let y=0;y<H;y+=85){c.beginPath();c.moveTo(0,y);c.lineTo(W,y);c.stroke();}
+  const mn=Math.min(...pts), mx=Math.max(...pts), pad=0.16*H;
+  c.shadowColor=color; c.shadowBlur=9;
+  c.strokeStyle=color; c.lineWidth=2.8; c.lineJoin='round'; c.beginPath();
+  pts.forEach((v,i)=>{ const x=i/(pts.length-1)*W;
+    const y=H-pad-(v-mn)/(mx-mn+1e-9)*(H-2*pad);
+    i?c.lineTo(x,y):c.moveTo(x,y); });
+  c.stroke(); c.shadowBlur=0;
+}
+
+// ================= training grid =================
+function buildStudy(){
+  const g=document.getElementById('studyGrid'); g.innerHTML='';
+  const items=[[false,11],[true,21],[false,12],[true,22],[false,13],[true,23]];
+  items.forEach(([irr,seed])=>{
+    const div=document.createElement('div'); div.style.margin='12px 0';
+    const mon=document.createElement('div'); mon.className='monitor';
+    const cv=document.createElement('canvas'); cv.width=680; cv.height=132;
+    mon.appendChild(cv); div.appendChild(mon);
+    drawMonitor(cv, ecgWave(P_A, irr, seed), irr?'#F87171':'#2DD4BF');
+    const tag=document.createElement('div'); tag.className='tagrow';
+    tag.innerHTML='<span class="tag '+(irr?'i':'n')+'">'+(irr?'IRREGULAR':'NORMAL')+'</span>';
+    div.appendChild(tag); g.appendChild(div);
+  });
+}
+
+// ================= quiz: engineered ambush =================
+// Level 1: same patient, clean contrast -> most people score 90-100
+// Level 2: five TRAP beats (healthy but shifted so they LOOK wrong by ward-A standards),
+//          one subtle PVC buried in wander (most miss it), two fair ones. Expected 40-60%.
+function makeBeats(lv){
+  // entry: [profile, isIrregular, seed, mode]
+  if(lv===1){
+    return [ [P_A,false,31],[P_A,true,41,'pvc'],[P_A,false,32],[P_A,true,42,'pvc'],
+             [P_A,false,33],[P_A,true,43,'pvc'],[P_A,false,34],[P_A,false,35] ];
+  }
+  // Every rule learnable from patient A fails somewhere here:
+  // "messy = irregular" fails on B/C normals; "wide beat = irregular" fails on
+  // pause/early irregulars (no wide beat) and on C's peaked-T lookalikes (false alarm).
+  return [
+    [P_B,false,51],           // trap for messiness rule (fast + wander, healthy)
+    [P_B,true, 56,'pause'],   // trap for PVC rule: the danger is a MISSING beat
+    [P_C,false,61],           // trap for PVC rule: peaked T looks like a second wide beat
+    [P_A,true, 44,'pvc'],     // fair: known-style PVC (gives hope, anchors trust)
+    [P_C,false,62],           // trap for both: slow + tall peaked T
+    [P_B,true, 57,'early'],   // trap for PVC rule: premature narrow beat, subtle
+    [P_B,false,54],           // trap for messiness rule
+    [P_C,true, 66,'pause'],   // trap: pause hidden in a slow tall rhythm
+  ];
+}
+
+function startQuiz(lv){
+  level=lv; qIdx=0; if(lv===1)score1=0; else score2=0;
+  beats=makeBeats(lv);
+  document.getElementById('qLevel').textContent = lv===1 ? 'LEVEL 1 · THE WARD' : 'LEVEL 2 · NEW ADMISSIONS';
+  const pr=document.getElementById('qProg'); pr.innerHTML='';
+  for(let i=0;i<8;i++){ pr.appendChild(document.createElement('i')); }
+  go('s-quiz'); nextBeat();
+}
+function nextBeat(){
+  cur=beats[qIdx];
+  document.getElementById('qTitle').textContent='Beat '+(qIdx+1)+' of 8 · your call:';
+  document.getElementById('qScore').textContent='Score '+(level===1?score1:score2)+' / '+qIdx;
+  drawMonitor(document.getElementById('qCanvas'), ecgWave(cur[0],cur[1],cur[2],560,cur[3]));
+}
+function flash(ok){
+  const fb=document.getElementById('fb'); fb.style.display='flex';
+  fb.firstElementChild.textContent= ok?'✓':'✗';
+  fb.firstElementChild.style.color= ok?'#4ADE80':'#F87171';
+  setTimeout(()=>fb.style.display='none', 430);
+}
+function answer(a){
+  const ok = a===(cur[1]?'I':'N');
+  flash(ok);
+  if(ok){ if(level===1)score1++; else score2++; }
+  document.getElementById('qProg').children[qIdx].className = ok?'done':'bad';
+  qIdx++;
+  setTimeout(()=>{
+    if(qIdx<8){ nextBeat(); return; }
+    if(level===1){
+      const pct=Math.round(score1/8*100);
+      go('s-r1'); countUp(document.getElementById('r1score'), pct, '%');
+    } else {
+      const p1=Math.round(score1/8*100), p2=Math.round(score2/8*100);
+      go('s-r2');
+      document.getElementById('r2head').textContent = p2<p1 ? 'That felt different, right?' : 'You are unusually good.';
+      setTimeout(()=>{
+        const b1=document.getElementById('bar1'), b2=document.getElementById('bar2');
+        b1.style.height=Math.max(p1,8)*1.6+'px'; b2.style.height=Math.max(p2,8)*1.6+'px';
+        b1.textContent=p1+'%'; b2.textContent=p2+'%';
+      },150);
+    }
+  }, 470);
+}
+
+// ================= reveal =================
+function drawReveal(){
+  const cv=document.getElementById('revCanvas'), c=cv.getContext('2d');
+  const W=cv.width, H=cv.height;
+  c.fillStyle='#0B1526'; c.fillRect(0,0,W,H);
+  c.strokeStyle='rgba(45,212,191,0.10)';
+  for(let x=0;x<W;x+=17){c.beginPath();c.moveTo(x,0);c.lineTo(x,H);c.stroke();}
+  for(let y=0;y<H;y+=17){c.beginPath();c.moveTo(0,y);c.lineTo(W,y);c.stroke();}
+  c.font='bold 14px Helvetica'; c.fillStyle='#2DD4BF';
+  c.fillText('WHAT YOU STUDIED · ward patient', 16, 26);
+  band(c, ecgWave(P_A,false,31), 38, 120, '#2DD4BF', W);
+  c.fillStyle='#F87171';
+  c.fillText('WHAT LEVEL 2 SERVED · patients you never saw', 16, 196);
+  band(c, ecgWave(P_B,false,53), 208, 60, '#F87171', W);
+  band(c, ecgWave(P_C,false,62), 285, 60, '#FBBF24', W);
+}
+function band(c, pts, y0, h, color, W){
+  const mn=Math.min(...pts), mx=Math.max(...pts);
+  c.shadowColor=color; c.shadowBlur=7;
+  c.strokeStyle=color; c.lineWidth=2.2; c.beginPath();
+  pts.forEach((v,i)=>{ const x=i/(pts.length-1)*W;
+    const y=y0+h-((v-mn)/(mx-mn+1e-9))*h;
+    i?c.lineTo(x,y):c.moveTo(x,y); });
+  c.stroke(); c.shadowBlur=0;
+}
+
+// ================= the three worlds =================
+const WORLDS=[
+ { key:'ecg', name:'The hospital', kick:'WORLD 1 OF 3 · THE HOSPITAL', labKick:'WORLD 1 · HOSPITAL', tag:'ECG · LEAD II',
+   job:'The model reads heartbeats', icon:'♥', iconBg:'#5A2430', iconCol:'#F87171',
+   story:'The villain now has its name: distribution shift. You met it here first. A model learns one ward\'s patients, then new patients walk in with older hearts, faster rhythms, different bodies. Same kind of signal, different world.',
+   shifts:['patients age','sensors move','rhythms differ'],
+   sliders:[ {id:'age', label:'Patient age', min:20,max:85,val:35,unit:'yrs'},
+             {id:'hr', label:'Resting heart rate', min:50,max:115,val:70,unit:'bpm'},
+             {id:'lead',label:'Sensor placement drift', min:0,max:100,val:5,unit:'%'} ],
+   train:{age:35,hr:70,lead:5},
+   gen:(v)=> ecgWave({hr:v.hr, amp:Math.max(.3,1.0-0.006*(v.age-35)), wander:0.015+0.0028*v.lead, noise:0.015+0.0009*v.lead, tAmp:Math.max(0.08,0.28-0.0025*(v.age-35)), w:1.0+0.005*(v.age-35)}, false, 77) },
+ { key:'har', name:'Your pocket', kick:'WORLD 2 OF 3 · YOUR POCKET', labKick:'WORLD 2 · YOUR POCKET', tag:'ACCELEROMETER',
+   job:'The model recognises your activity', icon:'▮', iconBg:'#1B3A55', iconCol:'#60A5FA',
+   story:'Same idea, new world: your phone\'s accelerometer learns how walking looks. But now the shift is not a new patient, it is YOU: the phone moves from pocket to hand to bag, and every person walks differently. The world shifts many times a day.',
+   shifts:['phone changes position','every person walks differently','speed varies'],
+   sliders:[ {id:'speed', label:'Walking speed', min:2,max:7,val:4,unit:'km/h'},
+             {id:'pos', label:'Phone position: pocket → bag', min:0,max:100,val:10,unit:'%'},
+             {id:'per', label:'Different person', min:0,max:100,val:10,unit:'%'} ],
+   train:{speed:4,pos:10,per:10},
+   gen:(v)=>{ const r=rng(9), n=560, out=[]; const f=v.speed*0.55;
+     for(let i=0;i<n;i++){ const t=i/n*4;
+       let y=Math.sin(2*Math.PI*f*t)*(1-0.0045*v.pos);
+       y+=0.45*Math.sin(2*Math.PI*2*f*t+1.2)*(1-0.006*v.per);
+       y+=0.2*Math.sin(2*Math.PI*3*f*t+0.4)*(1-0.004*v.per);
+       y+=(r()-0.5)*(0.09+0.005*v.pos);
+       out.push(y);} return out; } },
+ { key:'mac', name:'The factory', kick:'WORLD 3 OF 3 · THE FACTORY', labKick:'WORLD 3 · FACTORY', tag:'VIBRATION SENSOR',
+   job:'The model listens to machines', icon:'⚙', iconBg:'#3A2E12', iconCol:'#FBBF24',
+   story:'The final world is where I work: machines. A vibration model learns one machine at one load. Then the machine ages, the load changes, bearings wear. Here the stakes are highest: a missed fault can stop an aircraft or a production line.',
+   shifts:['machines wear out','load and speed change','every unit is different'],
+   sliders:[ {id:'load', label:'Machine load', min:10,max:100,val:40,unit:'%'},
+             {id:'rpm', label:'Rotation speed', min:600,max:2400,val:1200,unit:'rpm'},
+             {id:'wear', label:'Bearing wear', min:0,max:100,val:10,unit:'%'} ],
+   train:{load:40,rpm:1200,wear:10},
+   gen:(v)=>{ const r=rng(5), n=560, out=[]; const f=v.rpm/300;
+     for(let i=0;i<n;i++){ const t=i/n*3;
+       let y=0.5*Math.sin(2*Math.PI*f*t)*(0.6+0.006*v.load);
+       y+=0.25*Math.sin(2*Math.PI*2.3*f*t+0.5);
+       const burst=Math.exp(-Math.pow(((t*2.7)%1)-0.5,2)/0.004);
+       y+=burst*(0.016*v.wear)*Math.sin(2*Math.PI*11*f*t);
+       y+=(r()-0.5)*0.12;
+       out.push(y);} return out; } },
+];
+let vals={}, trainedAt={};
+function enterWorlds(){ world=0; showWorld(); }
+function nextWorld(){
+  if(world<2){ world++; showWorld(); }
+  else { go('s-final'); }
+}
+function showWorld(){
+  const Wd=WORLDS[world];
+  document.getElementById('wKick').textContent=Wd.kick;
+  document.getElementById('wTitle').textContent=Wd.name;
+  document.getElementById('wJob').textContent=Wd.job;
+  document.getElementById('wStory').textContent=Wd.story;
+  const ic=document.getElementById('wIcon');
+  ic.style.background=Wd.iconBg; ic.style.color=Wd.iconCol; ic.style.fontSize='22px'; ic.style.fontWeight='bold';
+  ic.textContent=Wd.icon;
+  const sh=document.getElementById('wShifts'); sh.innerHTML='';
+  Wd.shifts.forEach(s=>{ const sp=document.createElement('span'); sp.textContent=s; sh.appendChild(sp); });
+  for(let i=0;i<3;i++){
+    const c=document.getElementById('wc'+i);
+    c.className='wchip'+(i===world?' on':(i<world?' done':''));
+  }
+  go('s-world');
+}
+function initLab(){
+  const L=WORLDS[world];
+  document.getElementById('labKick').textContent=L.labKick;
+  document.getElementById('labTag').textContent=L.tag;
+  vals={}; trainedAt={...L.train};
+  L.sliders.forEach(s=>vals[s.id]=s.val);
+  const sl=document.getElementById('sliders'); sl.innerHTML='';
+  L.sliders.forEach(s=>{
+    const d=document.createElement('div'); d.className='slider-row';
+    d.innerHTML='<label>'+s.label+'<span id="v-'+s.id+'">'+vals[s.id]+' '+s.unit+'</span></label>'+
+      '<input type="range" min="'+s.min+'" max="'+s.max+'" value="'+vals[s.id]+'" id="in-'+s.id+'">';
+    sl.appendChild(d);
+    const inp=d.querySelector('input');
+    inp.addEventListener('input', ()=>{ vals[s.id]=+inp.value;
+      document.getElementById('v-'+s.id).textContent=inp.value+' '+s.unit; updateLab(); });
+  });
+  document.getElementById('nextWorldBtn').style.display='none';
+  updateLab();
+}
+function accuracy(){
+  const L=WORLDS[world]; let d=0;
+  L.sliders.forEach(s=>{ const range=s.max-s.min;
+    d += Math.pow(Math.abs(vals[s.id]-trainedAt[s.id])/range, 1.35); });
+  d/=L.sliders.length;
+  return Math.max(0.48, Math.min(0.95, 0.95-0.85*d));
+}
+function updateLab(){
+  const L=WORLDS[world];
+  drawMonitor(document.getElementById('labCanvas'), L.gen(vals));
+  const a=Math.round(accuracy()*100);
+  const col = a>85?'#2E9E4F': a>70?'#E8902A':'#C0392B';
+  const arc=document.getElementById('gArc'), num=document.getElementById('gNum');
+  arc.setAttribute('stroke', col);
+  arc.setAttribute('stroke-dashoffset', String(314*(1-a/100)));
+  num.setAttribute('fill', col); num.textContent=a+'%';
+  document.getElementById('gaugeNote').textContent =
+    a>85? 'Close to the training conditions. The model is comfortable.' :
+    a>70? 'The world is drifting from the training data. Accuracy is slipping.' :
+          'This is a different world now. The model is failing, and it does not know it.';
+}
+function adapt(){
+  const L=WORLDS[world];
+  trainedAt={...vals};
+  updateLab();
+  document.getElementById('gaugeNote').textContent='Adapted: the model re-anchored to this world using only unlabelled signals. No new labels were needed.';
+  document.getElementById('nextWorldBtn').style.display='block';
+}
+
+// boot
+buildStudy();
+// deep link: #l or #lab jumps straight to the Model Lab (Act 2), skipping the game
+if(location.hash==='#l' || location.hash==='#lab'){ enterWorlds(); }
+window.addEventListener('hashchange', ()=>{ if(location.hash==='#l'||location.hash==='#lab') enterWorlds(); });
+</script>
+</body>
+</html>
