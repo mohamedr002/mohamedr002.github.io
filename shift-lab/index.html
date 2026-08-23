@@ -437,7 +437,7 @@ const WORLDS=[
        y+=(r()-0.5)*0.12;
        out.push(y);} return out; } },
 ];
-let vals={}, trainedAt={};
+let vals={}, trainedAt={}, origAt={}, adapted=false;
 function enterWorlds(){ world=0; showWorld(); }
 function tryUnlock(){
   const el=document.getElementById('unlockCode'), msg=document.getElementById('unlockMsg');
@@ -469,7 +469,7 @@ function initLab(){
   const L=WORLDS[world];
   document.getElementById('labKick').textContent=L.labKick;
   document.getElementById('labTag').textContent=L.tag;
-  vals={}; trainedAt={...L.train};
+  vals={}; trainedAt={...L.train}; origAt={...L.train}; adapted=false;
   L.sliders.forEach(s=>vals[s.id]=s.val);
   const sl=document.getElementById('sliders'); sl.innerHTML='';
   L.sliders.forEach(s=>{
@@ -484,12 +484,20 @@ function initLab(){
   document.getElementById('nextWorldBtn').style.display='none';
   updateLab();
 }
-function accuracy(){
+function dist(ref){
   const L=WORLDS[world]; let d=0;
   L.sliders.forEach(s=>{ const range=s.max-s.min;
-    d += Math.pow(Math.abs(vals[s.id]-trainedAt[s.id])/range, 1.35); });
-  d/=L.sliders.length;
-  return Math.max(0.48, Math.min(0.95, 0.95-0.85*d));
+    d += Math.pow(Math.abs(vals[s.id]-ref[s.id])/range, 1.35); });
+  return d/L.sliders.length;
+}
+function accuracy(){
+  let a=0.95-0.85*dist(trainedAt);
+  if(adapted){
+    // honest adaptation: most of the gap closes, never all of it; the residual grows with how far this world sits from the original training conditions
+    const cap=0.95-0.13*Math.min(1, dist(origAt)*2.2);
+    a=Math.min(a, cap);
+  }
+  return Math.max(0.48, Math.min(0.95, a));
 }
 function updateLab(){
   const L=WORLDS[world];
@@ -506,10 +514,9 @@ function updateLab(){
           'This is a different world now. The model is failing, and it does not know it.';
 }
 function adapt(){
-  const L=WORLDS[world];
-  trainedAt={...vals};
+  trainedAt={...vals}; adapted=true;
   updateLab();
-  document.getElementById('gaugeNote').textContent='Adapted: the model re-anchored to this world using only unlabelled signals. No new labels were needed.';
+  document.getElementById('gaugeNote').textContent='Adapted with unlabelled signals only: most of the accuracy is back, but not all. Closing that last gap is the research.';
   document.getElementById('nextWorldBtn').style.display='block';
 }
 
